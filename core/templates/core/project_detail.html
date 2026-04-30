@@ -1,0 +1,225 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* BACKGROUND */
+.bg{
+    background:
+    radial-gradient(circle at 20% 20%, rgba(56,189,248,0.15), transparent),
+    radial-gradient(circle at 80% 80%, rgba(99,102,241,0.15), transparent),
+    #020617;
+}
+
+/* HERO */
+.hero{
+    position:relative;
+    height:70vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.hero img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0.25;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:60px;
+    font-weight:900;
+}
+
+.hero p{
+    color:#cbd5f5;
+    margin-top:10px;
+}
+
+/* CONTAINER */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:80px 20px;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:60px;
+}
+
+.section h2{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.section p{
+    color:#cbd5f5;
+    line-height:1.7;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.04);
+    padding:25px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+/* BADGES */
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    margin:5px;
+    background:rgba(56,189,248,0.1);
+    border-radius:10px;
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* BUTTONS */
+.actions{
+    margin-top:30px;
+}
+
+.btn{
+    padding:12px 20px;
+    background:#38bdf8;
+    color:black;
+    border-radius:10px;
+    text-decoration:none;
+    margin-right:10px;
+}
+
+/* ANIMATION */
+.fade{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.fade.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+</style>
+
+<div class="bg">
+
+<!-- HERO -->
+<div class="hero">
+    <img src="{{ project.image.url }}">
+    <div class="hero-content">
+        <h1>{{ project.title }}</h1>
+        <p>Projet professionnel • Solution digitale</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- DESCRIPTION -->
+    <div class="section fade">
+        <h2>📌 Description</h2>
+        <p>{{ project.description }}</p>
+    </div>
+
+    <!-- PROBLEM / SOLUTION -->
+    <div class="grid fade">
+        <div class="card">
+            <h3>Problème</h3>
+            <p>Besoin d’une solution digitale efficace et fiable.</p>
+        </div>
+
+        <div class="card">
+            <h3>Solution</h3>
+            <p>Développement d’une plateforme optimisée et performante.</p>
+        </div>
+    </div>
+
+    <!-- TECHNO -->
+    <div class="section fade">
+        <h2>⚙️ Technologies</h2>
+
+        <span class="badge">Python</span>
+        <span class="badge">Django</span>
+        <span class="badge">HTML</span>
+        <span class="badge">CSS</span>
+        <span class="badge">JavaScript</span>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="section fade">
+        <h2>🖼️ Aperçu</h2>
+
+        <div class="gallery">
+            {% for img in project.images.all %}
+                <img src="{{ img.image.url }}">
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions fade">
+        {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" class="btn">
+            Voir en ligne
+        </a>
+        {% endif %}
+    </div>
+
+</div>
+
+</div>
+
+<script>
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll',()=>{
+    const trigger = window.innerHeight * 0.85;
+
+    elements.forEach(el=>{
+        if(el.getBoundingClientRect().top < trigger){
+            el.classList.add('show');
+        }
+    });
+});
+</script>
+
+{% endblock %}

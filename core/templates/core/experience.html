@@ -1,0 +1,430 @@
+{% extends 'core/base.html' %}
+{% load static custom_filters %}
+
+{% block title %}Expériences{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= GLOBAL ================= */
+body{
+    background:#020617;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+/* ================= CURSOR LIGHT ================= */
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle, rgba(56,189,248,0.12), transparent 70%);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    left:var(--x,50%);
+    top:var(--y,50%);
+    z-index:1;
+}
+
+/* ================= HERO ================= */
+.hero-video{
+    position:relative;
+    height:85vh;
+    overflow:hidden;
+}
+
+.hero-video video{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.5);
+    transition:transform 2s ease;
+}
+
+.hero-video:hover video{
+    transform:scale(1.08);
+}
+
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle at center, rgba(2,6,23,0.6), #020617 90%);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.hero-content h1{
+    font-size:90px;
+    font-weight:900;
+    background:linear-gradient(90deg,#38bdf8,#6366f1,#8b5cf6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    letter-spacing:2px;
+}
+
+.hero-content p{
+    color:#cbd5f5;
+    font-size:18px;
+}
+
+/* ================= HOOK ================= */
+.hook{
+    text-align:center;
+    margin:80px 0;
+}
+
+.hook h2{
+    font-size:32px;
+    color:#94a3b8;
+}
+
+/* ================= KPI ================= */
+.kpis{
+    display:flex;
+    justify-content:center;
+    gap:80px;
+    margin:100px 0;
+}
+
+.kpi{
+    text-align:center;
+}
+
+.kpi h2{
+    font-size:60px;
+    color:#38bdf8;
+    text-shadow:0 0 20px #38bdf8;
+}
+
+.kpi span{
+    color:#94a3b8;
+}
+
+/* ================= TIMELINE ================= */
+.timeline{
+    position:relative;
+    max-width:1200px;
+    margin:auto;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    width:3px;
+    height:100%;
+    background:linear-gradient(#38bdf8,#8b5cf6);
+    box-shadow:0 0 30px #38bdf8;
+}
+
+/* ================= ITEM ================= */
+.item{
+    display:flex;
+    justify-content:space-between;
+    margin:150px 0;
+    position:relative;
+    opacity:0;
+    transform:translateY(100px) scale(0.95);
+    transition:1s ease;
+}
+
+.item.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+}
+
+/* ================= CARD ================= */
+.card{
+    width:45%;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(30px);
+    padding:40px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.5s;
+    position:relative;
+}
+
+/* glow border */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:30px;
+    padding:1px;
+    background:linear-gradient(120deg,#38bdf8,#8b5cf6);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    opacity:0;
+    transition:0.5s;
+}
+
+.card:hover{
+    transform:translateY(-20px) scale(1.05);
+    box-shadow:0 40px 100px rgba(56,189,248,0.3);
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card.right{
+    margin-left:auto;
+}
+
+.card h3{
+    font-size:28px;
+    color:#fff;
+}
+
+.date{
+    color:#38bdf8;
+    margin:10px 0;
+}
+
+.card p{
+    color:#cbd5f5;
+    line-height:1.7;
+}
+
+/* BADGES */
+.badge{
+    display:inline-block;
+    margin:5px;
+    padding:6px 14px;
+    border-radius:12px;
+    background:rgba(56,189,248,0.15);
+    font-size:12px;
+}
+
+/* DOT */
+.dot{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:22px;
+    height:22px;
+    background:#38bdf8;
+    border-radius:50%;
+    box-shadow:0 0 30px #38bdf8,0 0 60px #38bdf8;
+}
+
+/* ================= IMPACT ================= */
+.impact{
+    text-align:center;
+    margin:150px 0;
+}
+
+.impact h2{
+    font-size:45px;
+    margin-bottom:50px;
+}
+
+.impact-grid{
+    display:flex;
+    justify-content:center;
+    gap:60px;
+}
+
+.impact-card{
+    background:rgba(255,255,255,0.05);
+    padding:50px;
+    border-radius:25px;
+    transition:0.4s;
+}
+
+.impact-card:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 60px #38bdf8;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+
+    .hero-content h1{
+        font-size:45px;
+    }
+
+    .item{
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .card{
+        width:100%;
+    }
+
+    .timeline::before{
+        left:10px;
+    }
+
+    .dot{
+        left:10px;
+    }
+
+    .kpis{
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .impact-grid{
+        flex-direction:column;
+    }
+}
+
+</style>
+
+<!-- HERO -->
+<div class="hero-video">
+    <video autoplay muted loop playsinline>
+        <source src="{% static 'videos/bg.mp4' %}" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>Expériences</h1>
+        <p>Ingénierie • Technologie • Création • Performance</p>
+    </div>
+</div>
+
+<!-- HOOK -->
+<div class="hook">
+    <h2>Je transforme des idées en systèmes performants, fiables et monétisables.</h2>
+</div>
+
+<!-- KPI -->
+<div class="kpis">
+    <div class="kpi">
+        <h2>{{ total_years }}</h2>
+        <span>Années d'expérience</span>
+    </div>
+    <div class="kpi">
+        <h2>+15</h2>
+        <span>Projets réalisés</span>
+    </div>
+    <div class="kpi">
+        <h2>100%</h2>
+        <span>Engagement</span>
+    </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline">
+
+    <!-- ITEM 1 -->
+    <div class="item">
+        <div class="card">
+            <h3>Maintenance Biomédicale</h3>
+            <div class="date">2026 - En cours</div>
+            <p>Diagnostic et optimisation d’équipements médicaux critiques.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="item">
+        <div class="card right">
+            <h3>Développement Web</h3>
+            <div class="date">2023 - Présent</div>
+            <p>Création de plateformes modernes avec Django et API.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="item">
+        <div class="card">
+            <h3>Technicien Informatique</h3>
+            <div class="date">2022 - Présent</div>
+            <p>Maintenance systèmes, réseaux et support technique.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="item">
+        <div class="card right">
+            <h3>Écrivain</h3>
+            <div class="date">En cours</div>
+            <p>
+                Romans :
+                <strong>Les Soleils de Minuits Passés</strong> &
+                <strong>Pardonne-moi avant que la nuit ne tombe</strong>.
+            </p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+</div>
+
+<!-- IMPACT -->
+<div class="impact">
+    <h2>Impact & Résultats</h2>
+
+    <div class="impact-grid">
+        <div class="impact-card">
+            <h3>+15</h3>
+            <p>Projets réalisés</p>
+        </div>
+        <div class="impact-card">
+            <h3>+90%</h3>
+            <p>Satisfaction</p>
+        </div>
+        <div class="impact-card">
+            <h3>24h</h3>
+            <p>Temps de réponse</p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+/* SCROLL */
+const items = document.querySelectorAll('.item');
+
+window.addEventListener('scroll', () => {
+    items.forEach(item => {
+        if(item.getBoundingClientRect().top < window.innerHeight * 0.85){
+            item.classList.add('show');
+        }
+    });
+});
+
+/* COUNTER */
+let started = false;
+window.addEventListener('scroll',()=>{
+    const counter = document.getElementById("years");
+    if(counter && !started && counter.getBoundingClientRect().top < window.innerHeight){
+        started = true;
+        let count = 0;
+        let interval = setInterval(()=>{
+            count++;
+            counter.innerText = count;
+            if(count === 6){
+                clearInterval(interval);
+            }
+        },150);
+    }
+});
+
+/* CURSOR LIGHT */
+document.addEventListener("mousemove", (e)=>{
+    document.body.style.setProperty('--x', e.clientX + 'px');
+    document.body.style.setProperty('--y', e.clientY + 'px');
+});
+
+</script>
+
+{% endblock %}

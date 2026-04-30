@@ -1,0 +1,268 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Compétences{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* BACKGROUND */
+.bg{
+    background:
+    radial-gradient(circle at 20% 20%, rgba(56,189,248,0.2), transparent),
+    radial-gradient(circle at 80% 80%, rgba(99,102,241,0.2), transparent),
+    #020617;
+}
+
+/* CONTAINER */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:120px 20px;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.title h1{
+    font-size:65px;
+    font-weight:900;
+    background:linear-gradient(to right,#38bdf8,#6366f1);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:25px;
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.02);
+    border:1px solid #38bdf8;
+}
+
+/* GLOW EFFECT */
+.card::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle, rgba(56,189,248,0.2), transparent 60%);
+    opacity:0;
+    transition:0.4s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+/* SKILL BAR */
+.skill{
+    margin-bottom:20px;
+}
+
+.bar{
+    height:8px;
+    background:#1e293b;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.bar-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(to right,#38bdf8,#6366f1);
+    transition:1.5s;
+}
+
+/* CIRCLE */
+.circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:6px solid rgba(255,255,255,0.1);
+    position:relative;
+    margin:20px auto;
+}
+
+.circle span{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:20px;
+}
+
+/* BADGE */
+.badge{
+    display:inline-block;
+    padding:8px 14px;
+    margin:5px;
+    background:#38bdf8;
+    color:black;
+    border-radius:12px;
+    font-size:13px;
+}
+
+/* STATS */
+.stats{
+    display:flex;
+    justify-content:space-around;
+    margin-top:60px;
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat h2{
+    font-size:40px;
+    color:#38bdf8;
+}
+
+/* ANIMATION */
+.fade{
+    opacity:0;
+    transform:translateY(50px);
+    transition:1s;
+}
+
+.fade.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+</style>
+
+<div class="bg">
+
+<div class="container">
+
+    <div class="title fade">
+        <h1>Compétences</h1>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid">
+
+        {% for cat, skills in categories.items %}
+        <div class="card fade">
+
+            <h2>
+                {% if cat == "dev" %}💻 Développement{% endif %}
+                {% if cat == "bio" %}🔧 Biomédical{% endif %}
+                {% if cat == "it" %}⚙️ IT{% endif %}
+                {% if cat == "soft" %}🧠 Soft Skills{% endif %}
+            </h2>
+
+            {% for skill in skills %}
+            <div class="skill">
+
+                <p>{{ skill.name }}</p>
+
+                <div class="bar">
+                    <div class="bar-fill" data-width="{{ skill.level }}%"></div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="card fade" style="margin-top:40px;">
+        <h2>Certifications</h2>
+
+        {% for cert in certifications %}
+            <span class="badge">
+                {{ cert.title }} ({{ cert.year }})
+            </span>
+        {% endfor %}
+    </div>
+
+    <!-- STATS -->
+    <div class="stats fade">
+        <div class="stat">
+            <h2 id="count1">0</h2>
+            <p>Projets</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="count2">0</h2>
+            <p>Compétences</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="count3">0</h2>
+            <p>Années</p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+/* SCROLL ANIMATION */
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll',()=>{
+    const trigger = window.innerHeight * 0.85;
+
+    elements.forEach(el=>{
+        if(el.getBoundingClientRect().top < trigger){
+            el.classList.add('show');
+        }
+    });
+});
+
+/* BARS */
+document.querySelectorAll('.bar-fill').forEach(bar=>{
+    setTimeout(()=>{
+        bar.style.width = bar.dataset.width;
+    },500);
+});
+
+/* COUNTER */
+function animateCounter(id, max){
+    let i = 0;
+    let el = document.getElementById(id);
+
+    let interval = setInterval(()=>{
+        i++;
+        el.innerText = i;
+        if(i >= max){
+            clearInterval(interval);
+        }
+    },50);
+}
+
+animateCounter("count1", 10);
+animateCounter("count2", 15);
+animateCounter("count3", 5);
+
+</script>
+
+{% endblock %}

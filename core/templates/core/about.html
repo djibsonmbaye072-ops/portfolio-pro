@@ -1,0 +1,245 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Présentation{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* BACKGROUND ELITE */
+.about-bg{
+    background:
+        radial-gradient(circle at 10% 20%, rgba(56,189,248,0.2), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(99,102,241,0.2), transparent 40%),
+        #020617;
+}
+
+/* CONTAINER */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:120px 20px;
+}
+
+/* HERO TITLE */
+.hero{
+    text-align:center;
+    margin-bottom:100px;
+}
+
+.hero h1{
+    font-size:64px;
+    font-weight:800;
+    letter-spacing:-2px;
+    background:linear-gradient(to right,#38bdf8,#6366f1);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:#94a3b8;
+    margin-top:15px;
+    font-size:18px;
+}
+
+/* GRID */
+.profile{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:100px;
+    align-items:center;
+}
+
+/* IMAGE */
+.profile-img{
+    position:relative;
+    display:flex;
+    justify-content:center;
+}
+
+.profile-img img{
+    width:320px;
+    border-radius:30px;
+    box-shadow:0 50px 150px rgba(0,0,0,0.9);
+    z-index:2;
+}
+
+/* GLOW */
+.profile-img::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    background:radial-gradient(circle,#38bdf8,transparent 70%);
+    filter:blur(100px);
+    z-index:1;
+}
+
+/* TEXT */
+.profile-text h2{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.profile-text p{
+    color:#cbd5f5;
+    line-height:1.9;
+    margin-bottom:20px;
+    font-size:18px;
+}
+
+/* HIGHLIGHT */
+.highlight{
+    color:#38bdf8;
+    font-weight:600;
+}
+
+/* SKILLS GRID */
+.skills{
+    margin-top:100px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+/* CARD */
+.skill{
+    background:rgba(255,255,255,0.03);
+    padding:30px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    transition:0.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+/* HOVER GLOW */
+.skill::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,#38bdf8,transparent);
+    opacity:0;
+    transition:0.4s;
+}
+
+.skill:hover::before{
+    opacity:0.2;
+}
+
+.skill:hover{
+    transform:translateY(-15px) scale(1.02);
+    border:1px solid #38bdf8;
+}
+
+/* ANIMATION */
+.fade{
+    opacity:0;
+    transform:translateY(50px);
+    transition:1s ease;
+}
+
+.fade.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .profile{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+}
+
+</style>
+
+<div class="about-bg">
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero fade">
+        <h1>Présentation</h1>
+        <p>Ingénieur Informatique & Maintenance Biomédicale</p>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile fade">
+
+        <div class="profile-img">
+            <img src="{% static 'photo_soft.png' %}">
+        </div>
+
+        <div class="profile-text">
+
+            <h2>DJIBRIL MBAYE</h2>
+
+            <p>
+            Ingénieur spécialisé en <span class="highlight">informatique</span> et
+            <span class="highlight">maintenance biomédicale</span>, je conçois des systèmes fiables
+            et développe des solutions digitales performantes.
+            </p>
+
+            <p>
+            J’interviens dans des environnements critiques où
+            <span class="highlight">performance</span>, sécurité et continuité de service
+            sont essentielles.
+            </p>
+
+            <p>
+            Mon objectif est de contribuer à la transformation technologique
+            et à l’évolution des infrastructures de santé en Afrique.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- SKILLS -->
+    <div class="skills fade">
+
+        <div class="skill">
+            <h3>💻 Développement Web</h3>
+            <p>Applications modernes avec Django</p>
+        </div>
+
+        <div class="skill">
+            <h3>🔧 Maintenance Biomédicale</h3>
+            <p>Optimisation des équipements médicaux</p>
+        </div>
+
+        <div class="skill">
+            <h3>⚙️ Systèmes & Réseaux</h3>
+            <p>Infrastructure et performance</p>
+        </div>
+
+        <div class="skill">
+            <h3>📊 Analyse & Ingénierie</h3>
+            <p>Résolution de problèmes complexes</p>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll',()=>{
+    const trigger = window.innerHeight * 0.85;
+
+    elements.forEach(el=>{
+        if(el.getBoundingClientRect().top < trigger){
+            el.classList.add('show');
+        }
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}DJIBRIL MBAYE{% endblock %}</title>
+
+<!-- ICONES -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+    --bg:#070d1a;
+    --text:#ffffff;
+    --nav:rgba(2,6,23,0.7);
+}
+
+body.light{
+    --bg:#f8fafc;
+    --text:#0f172a;
+    --nav:rgba(255,255,255,0.7);
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+}
+
+/* LOADER */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:0.5s;
+}
+
+.loader-text{
+    font-size:22px;
+    letter-spacing:3px;
+    animation:blink 1s infinite alternate;
+}
+
+@keyframes blink{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+
+/* NAVBAR */
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:transparent;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.navbar.scrolled{
+    background:var(--nav);
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    font-weight:700;
+}
+
+.navbar a{
+    margin-left:25px;
+    color:#cbd5f5;
+    text-decoration:none;
+    font-weight:500;
+    position:relative;
+}
+
+body.light .navbar a{
+    color:#334155;
+}
+
+.navbar a:hover{
+    color:#38bdf8;
+}
+
+.navbar a.active{
+    color:#38bdf8;
+}
+
+.navbar a.active::after{
+    content:"";
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:100%;
+    height:2px;
+    background:#38bdf8;
+}
+
+.toggle{
+    margin-left:20px;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#38bdf8;
+    border:none;
+    cursor:pointer;
+}
+
+/* PAGE */
+.page{
+    opacity:0;
+    transform:translateY(30px);
+    animation:pageEnter 0.8s ease forwards;
+}
+
+@keyframes pageEnter{
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .navbar{flex-direction:column;gap:10px;}
+    .navbar nav{flex-wrap:wrap;justify-content:center;}
+    .navbar a{margin:10px;}
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-text">DJIBRIL MBAYE</div>
+</div>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+
+    <div class="logo">DJIBRIL MBAYE</div>
+
+    <nav>
+        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">
+            <i class="fa-solid fa-house"></i> Accueil
+        </a>
+
+        <a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">
+            <i class="fa-solid fa-user"></i> Présentation
+        </a>
+
+        <a href="{% url 'experience' %}" class="{% if request.path == '/experience/' %}active{% endif %}">
+            <i class="fa-solid fa-briefcase"></i> Expériences
+        </a>
+
+        <a href="{% url 'projects' %}" class="{% if request.path == '/projects/' %}active{% endif %}">
+            <i class="fa-solid fa-diagram-project"></i> Réalisations
+        </a>
+
+        <a href="{% url 'skills' %}" class="{% if request.path == '/skills/' %}active{% endif %}">
+            <i class="fa-solid fa-bolt"></i> Compétences
+        </a>
+
+        <button class="toggle" onclick="toggleMode()">🌙</button>
+    </nav>
+
+</header>
+
+<!-- CONTENT -->
+<div class="page">
+{% block content %}
+{% endblock %}
+</div>
+
+<script>
+
+/* LOADER */
+window.addEventListener("load",()=>{
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    setTimeout(()=> loader.style.display = "none",500);
+});
+
+/* NAVBAR SCROLL */
+window.addEventListener("scroll",()=>{
+    document.getElementById("navbar")
+    .classList.toggle("scrolled", window.scrollY > 50);
+});
+
+/* DARK MODE */
+function toggleMode(){
+    document.body.classList.toggle("light");
+}
+
+/* =========================
+   SAFE PAGE TRANSITION
+========================= */
+document.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click", function(e){
+
+        const href = this.getAttribute("href");
+
+        // ignore liens spéciaux
+        if(
+            !href ||
+            href.startsWith("#") ||
+            href.startsWith("http") ||
+            href.includes("admin")
+        ){
+            return;
+        }
+
+        e.preventDefault();
+
+        gsap.to(".page",{
+            opacity:0,
+            y:30,
+            duration:0.4,
+            onComplete:()=> window.location.href = href
+        });
+
+    });
+});
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".section").forEach(section=>{
+    gsap.from(section,{
+        scrollTrigger:{
+            trigger:section,
+            start:"top 85%",
+        },
+        y:80,
+        opacity:0,
+        duration:1,
+        ease:"power3.out"
+    });
+});
+
+</script>
+
+</body>
+</html>
