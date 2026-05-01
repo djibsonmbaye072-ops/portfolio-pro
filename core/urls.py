@@ -10,4 +10,8 @@ urlpatterns = [
     path('skills/', views.skills, name='skills'),
     path('cv/', views.download_cv, name='download_cv'),
 
+    # 📖 PAGE ROMAN (indépendante de l'accueil)
+    path('roman/', views.roman, name='roman'),
+
+    path('roman/pardonne/', views.roman_pardonne, name='roman_pardonne'),
 ]

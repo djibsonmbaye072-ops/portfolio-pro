@@ -1,0 +1,304 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Mes Romans{% endblock %}
+
+{% block content %}
+
+<!-- ===== BACKGROUND ===== -->
+<div class="bg-ambient">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="cursor-light" id="cursorLight"></div>
+
+<style>
+
+/* ===== GLOBAL ===== */
+body{
+    background: radial-gradient(circle at top, #020617, #000);
+    color:#e2e8f0;
+    font-family:'Inter','Segoe UI',sans-serif;
+    overflow-x:hidden;
+}
+
+/* ===== CURSOR LIGHT ===== */
+.cursor-light{
+    position:fixed;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%);
+    transform:translate(-50%,-50%);
+    z-index:1;
+    transition:transform 0.08s linear;
+}
+
+/* ===== AMBIENT ===== */
+.bg-ambient{
+    position:fixed;
+    inset:0;
+    z-index:0;
+}
+
+.bg-ambient span{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:0.12;
+    animation:float 20s infinite ease-in-out;
+}
+
+.bg-ambient span:nth-child(1){background:#38bdf8; top:-100px; left:-100px;}
+.bg-ambient span:nth-child(2){background:#818cf8; bottom:-120px; right:-120px; animation-delay:5s;}
+.bg-ambient span:nth-child(3){background:#0ea5e9; top:50%; left:40%; animation-delay:10s;}
+
+@keyframes float{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(60px,-40px);}
+    100%{transform:translate(0,0);}
+}
+
+/* ===== GRAIN ===== */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity:0.03;
+    pointer-events:none;
+    z-index:1;
+}
+
+/* ===== CONTENT ===== */
+.page-title,.books,.popup{
+    position:relative;
+    z-index:2;
+}
+
+/* ===== TITLE ===== */
+.page-title{
+    text-align:center;
+    margin-top:100px;
+    font-size:48px;
+    font-weight:900;
+    background: linear-gradient(90deg,#38bdf8,#818cf8);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* ===== GRID ===== */
+.books{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:45px;
+    padding:70px;
+    max-width:1300px;
+    margin:auto;
+    perspective:1200px;
+}
+
+/* ===== CARD ===== */
+.book{
+    position:relative;
+    border-radius:22px;
+    overflow:hidden;
+    background:rgba(15,23,42,0.6);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.05);
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+    transition:transform 0.2s ease, box-shadow 0.3s;
+    transform-style:preserve-3d;
+}
+
+/* ===== IMAGE ===== */
+.book img{
+    width:100%;
+    height:420px;
+    object-fit:contain;
+    padding:15px;
+}
+
+/* ===== OVERLAY ===== */
+.overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(2,6,23,0.95), transparent);
+    opacity:0;
+    transition:0.3s;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+
+/* ===== TEXT ===== */
+.overlay h2{font-size:20px;}
+.overlay p{font-size:14px;color:#cbd5f5;}
+
+/* ===== BUTTON ===== */
+.overlay a{
+    margin-top:15px;
+    padding:10px;
+    background:linear-gradient(90deg,#38bdf8,#818cf8);
+    border-radius:20px;
+    text-align:center;
+    color:white;
+}
+
+/* ===== HOVER ===== */
+.book:hover{
+    transform:scale(1.03);
+    box-shadow:0 30px 80px rgba(0,0,0,0.9);
+}
+
+.book:hover .overlay{opacity:1;}
+
+/* ===== POPUP ===== */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(2,6,23,0.95);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+/* ===== CONTENT ===== */
+.popup-content{
+    background:rgba(15,23,42,0.9);
+    padding:45px;
+    border-radius:20px;
+    max-width:750px;
+    max-height:85vh;
+    overflow:auto;
+}
+
+/* ===== TEXT ===== */
+.popup-content p{
+    font-family:Georgia,serif;
+    line-height:2;
+}
+
+/* ===== BUTTON ===== */
+.btn-main{
+    background:#38bdf8;
+    padding:12px 22px;
+    border:none;
+    border-radius:25px;
+}
+
+/* ===== CLOSE ===== */
+.close{
+    position:absolute;
+    top:25px;
+    right:35px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .books{padding:30px;}
+}
+
+</style>
+
+<h1 class="page-title">📖 Recuerda mi Nombre</h1>
+
+<section class="books">
+
+<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+    <img src="{% static 'core/heritage.png' %}">
+    <div class="overlay">
+        <h2>PARDONNE-MOI, AVANT QUE LA NUIT NE TOMBE</h2>
+        <a onclick="openDetails('r1')">Voir détails</a>
+    </div>
+</div>
+
+<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+    <img src="{% static 'core/mariame.png' %}">
+    <div class="overlay">
+        <h2>Mariama</h2>
+        <a onclick="openDetails('r2')">Voir détails</a>
+    </div>
+</div>
+
+<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+    <img src="{% static 'core/vivant.png' %}">
+    <div class="overlay">
+        <h2>Même vivant, tu me manques</h2>
+        <a onclick="openDetails('r3')">Voir détails</a>
+    </div>
+</div>
+
+</section>
+
+<div class="popup" id="popup">
+    <div class="close" onclick="closePopup()">✖</div>
+    <div class="popup-content" id="popupContent"></div>
+</div>
+
+<script>
+
+/* ===== CURSOR LIGHT ===== */
+document.addEventListener("mousemove",(e)=>{
+    const light=document.getElementById("cursorLight");
+    light.style.left=e.clientX+"px";
+    light.style.top=e.clientY+"px";
+});
+
+/* ===== 3D TILT ===== */
+function tilt(e,el){
+    const rect=el.getBoundingClientRect();
+    const x=e.clientX-rect.left;
+    const y=e.clientY-rect.top;
+
+    const rotateX=-(y-rect.height/2)/15;
+    const rotateY=(x-rect.width/2)/15;
+
+    el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+}
+
+function resetTilt(el){
+    el.style.transform="rotateX(0) rotateY(0)";
+}
+
+/* ===== POPUP ===== */
+const books={
+r1:{title:"PARDONNE-MOI...",file:"r1.txt"},
+r2:{title:"Mariama",file:"r2.txt"},
+r3:{title:"Même vivant...",file:"r3.txt"}
+};
+
+const popup=document.getElementById("popup");
+const popupContent=document.getElementById("popupContent");
+
+function openDetails(id){
+    const b=books[id];
+    popup.style.display="flex";
+    popupContent.innerHTML=`<h2>${b.title}</h2>
+    <button class="btn-main" onclick="showExtract('${id}')">Lire</button>`;
+}
+
+function showExtract(id){
+    fetch(`/static/core/${books[id].file}`)
+    .then(r=>r.text())
+    .then(text=>{
+        popupContent.innerHTML=`<p>${text.replace(/\n/g,"<br>")}</p>`;
+    });
+}
+
+function closePopup(){
+    popup.style.display="none";
+}
+
+</script>
+
+{% endblock %}

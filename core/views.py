@@ -135,3 +135,17 @@ def download_cv(request):
         )
     else:
         return HttpResponse("⚠️ CV introuvable. Ajoute le fichier dans /media/cv.pdf")
+
+
+# =========================
+# 📖 PAGE ROMAN (LISTE)
+# =========================
+def roman(request):
+    return render(request, 'core/roman.html')
+
+
+# =========================
+# 🌑 PAGE ROMAN PREMIUM
+# =========================
+def roman_pardonne(request):
+    return render(request, 'core/roman_pardonne.html')

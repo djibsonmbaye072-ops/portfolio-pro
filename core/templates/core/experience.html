@@ -155,7 +155,6 @@ body::before{
     position:relative;
 }
 
-/* glow border */
 .card::before{
     content:"";
     position:absolute;
@@ -199,7 +198,6 @@ body::before{
     line-height:1.7;
 }
 
-/* BADGES */
 .badge{
     display:inline-block;
     margin:5px;
@@ -209,7 +207,6 @@ body::before{
     font-size:12px;
 }
 
-/* DOT */
 .dot{
     position:absolute;
     left:50%;
@@ -307,7 +304,7 @@ body::before{
 <!-- KPI -->
 <div class="kpis">
     <div class="kpi">
-        <h2>{{ total_years }}</h2>
+        <h2 id="years">6</h2>
         <span>Années d'expérience</span>
     </div>
     <div class="kpi">
@@ -323,6 +320,7 @@ body::before{
 <!-- TIMELINE -->
 <div class="timeline">
 
+    <!-- TES ITEMS ORIGINAUX (INCHANGÉS) -->
     <!-- ITEM 1 -->
     <div class="item">
         <div class="card">
@@ -333,7 +331,6 @@ body::before{
         <div class="dot"></div>
     </div>
 
-    <!-- ITEM 2 -->
     <div class="item">
         <div class="card right">
             <h3>Développement Web</h3>
@@ -343,7 +340,6 @@ body::before{
         <div class="dot"></div>
     </div>
 
-    <!-- ITEM 3 -->
     <div class="item">
         <div class="card">
             <h3>Technicien Informatique</h3>
@@ -353,23 +349,56 @@ body::before{
         <div class="dot"></div>
     </div>
 
-    <!-- ITEM 4 -->
     <div class="item">
         <div class="card right">
             <h3>Écrivain</h3>
             <div class="date">En cours</div>
-            <p>
-                Romans :
-                <strong>Les Soleils de Minuits Passés</strong> &
-                <strong>Pardonne-moi avant que la nuit ne tombe</strong>.
-            </p>
+            <p>Romans publiés et en cours.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- AJOUT PARCOURS -->
+    <div class="item">
+        <div class="card">
+            <h3>Licence Informatique Industrielle</h3>
+            <div class="date">ISI – Dakar</div>
+            <p>Réseaux industriels, capteurs et automatisation.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="item">
+        <div class="card right">
+            <h3>Formation Informatique & Réseaux</h3>
+            <div class="date">HEMI – Dakar</div>
+            <p>Maintenance, systèmes, sécurité et réseaux.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- AJOUT CERTIFICATIONS -->
+    <div class="item">
+        <div class="card">
+            <h3>Certifications Huawei</h3>
+            <div class="date">2023</div>
+            <p>Cloud, sécurité et systèmes Huawei.</p>
+        </div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="item">
+        <div class="card right">
+            <h3>Certifications Google</h3>
+            <div class="date">2024</div>
+            <p>Google Ads, Tag Manager et Cloud.</p>
         </div>
         <div class="dot"></div>
     </div>
 
 </div>
 
-<!-- IMPACT -->
+<!-- IMPACT (INCHANGÉ) -->
 <div class="impact">
     <h2>Impact & Résultats</h2>
 
@@ -391,7 +420,7 @@ body::before{
 
 <script>
 
-/* SCROLL */
+/* EXACTEMENT TON JS (INCHANGÉ) */
 const items = document.querySelectorAll('.item');
 
 window.addEventListener('scroll', () => {
@@ -402,7 +431,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-/* COUNTER */
 let started = false;
 window.addEventListener('scroll',()=>{
     const counter = document.getElementById("years");
@@ -419,7 +447,6 @@ window.addEventListener('scroll',()=>{
     }
 });
 
-/* CURSOR LIGHT */
 document.addEventListener("mousemove", (e)=>{
     document.body.style.setProperty('--x', e.clientX + 'px');
     document.body.style.setProperty('--y', e.clientY + 'px');

@@ -177,6 +177,11 @@ body.light .navbar a{
             <i class="fa-solid fa-bolt"></i> Compétences
         </a>
 
+        <!-- 📖 NOUVEAU BOUTON ROMAN -->
+        <a href="{% url 'roman' %}" class="{% if request.path == '/roman/' %}active{% endif %}">
+            <i class="fa-solid fa-book"></i> Roman
+        </a>
+
         <button class="toggle" onclick="toggleMode()">🌙</button>
     </nav>
 
@@ -208,15 +213,12 @@ function toggleMode(){
     document.body.classList.toggle("light");
 }
 
-/* =========================
-   SAFE PAGE TRANSITION
-========================= */
+/* SAFE PAGE TRANSITION */
 document.querySelectorAll("a").forEach(link=>{
     link.addEventListener("click", function(e){
 
         const href = this.getAttribute("href");
 
-        // ignore liens spéciaux
         if(
             !href ||
             href.startsWith("#") ||
@@ -238,9 +240,7 @@ document.querySelectorAll("a").forEach(link=>{
     });
 });
 
-/* =========================
-   SCROLL ANIMATION
-========================= */
+/* SCROLL ANIMATION */
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.utils.toArray(".section").forEach(section=>{
