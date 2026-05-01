@@ -1,0 +1,182 @@
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= GLOBAL ================= */
+body{
+    overflow-x:hidden;
+}
+
+/* ================= CONTAINER ================= */
+.container{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:0 20px;
+}
+
+/* ================= TYPO ================= */
+h1{
+    font-size:clamp(28px,5vw,64px);
+    line-height:1.2;
+}
+
+h2{
+    font-size:clamp(22px,4vw,42px);
+}
+
+p{
+    font-size:clamp(14px,2vw,18px);
+    line-height:1.6;
+}
+
+/* ================= IMAGE ================= */
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
+}
+
+/* ================= BUTTON ================= */
+button,.btn{
+    padding:12px 20px;
+    border-radius:25px;
+    cursor:pointer;
+    border:none;
+}
+
+/* ================= GRID ================= */
+.grid{
+    display:grid;
+    gap:20px;
+}
+
+/* ================= FLEX ================= */
+.flex{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ================= NAVBAR MOBILE ================= */
+@media(max-width:768px){
+
+    .navbar{
+        padding:15px 20px !important;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+}
+
+/* ================= HERO ================= */
+@media(max-width:768px){
+
+    .hero-content{
+        padding:0 15px;
+        text-align:center;
+    }
+
+    .hero-content h1{
+        font-size:34px !important;
+    }
+
+    .hero-content p{
+        font-size:14px !important;
+    }
+
+}
+
+/* ================= TIMELINE ================= */
+@media(max-width:768px){
+
+    .timeline::before{
+        left:15px !important;
+    }
+
+    .item{
+        flex-direction:column !important;
+        padding-left:40px !important;
+        gap:20px;
+    }
+
+    .card{
+        width:100% !important;
+        padding:20px !important;
+    }
+
+    .dot{
+        left:15px !important;
+    }
+
+}
+
+/* ================= KPI ================= */
+@media(max-width:768px){
+
+    .kpis{
+        flex-direction:column !important;
+        gap:25px !important;
+    }
+
+    .kpi h2{
+        font-size:34px !important;
+    }
+
+}
+
+/* ================= IMPACT ================= */
+@media(max-width:768px){
+
+    .impact-grid{
+        flex-direction:column !important;
+        gap:20px !important;
+    }
+
+    .impact-card{
+        padding:25px !important;
+    }
+
+}
+
+/* ================= PROFILE ================= */
+@media(max-width:768px){
+
+    .profile{
+        grid-template-columns:1fr !important;
+        text-align:center;
+        gap:30px !important;
+    }
+
+    .profile-img img{
+        max-width:260px !important;
+        margin:auto;
+    }
+
+}
+
+/* ================= TEXT ================= */
+@media(max-width:768px){
+
+    p{
+        font-size:14px !important;
+    }
+
+}
+
+/* ================= BUTTON ================= */
+@media(max-width:768px){
+
+    .btn,button{
+        width:100%;
+        max-width:280px;
+        margin:auto;
+        display:block;
+    }
+
+}

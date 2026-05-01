@@ -5,55 +5,30 @@
 
 {% block content %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
 <style>
 
-/* BACKGROUND */
+/* ===== BACKGROUND ===== */
 .about-bg{
     background: radial-gradient(circle at top, #0f172a, #020617);
     min-height:100vh;
     color:#fff;
 }
 
-/* LOADER */
-#loader{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:#020617;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    animation:fadeOut 1s ease 2s forwards;
-}
-
-#loader h1{
-    color:#38bdf8;
-    font-size:34px;
-    letter-spacing:4px;
-}
-
-@keyframes fadeOut{
-    to{opacity:0; visibility:hidden;}
-}
-
-/* CONTAINER */
+/* ===== CONTAINER ===== */
 .container{
-    max-width:1300px;
+    max-width:1200px;
     margin:auto;
-    padding:120px 20px;
+    padding:100px 20px 60px;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
     text-align:center;
-    margin-bottom:80px;
+    margin-bottom:60px;
 }
 
 .hero h1{
-    font-size:70px;
+    font-size:60px;
     font-weight:900;
     background:linear-gradient(90deg,#38bdf8,#6366f1);
     -webkit-background-clip:text;
@@ -62,147 +37,156 @@
 
 .hero p{
     color:#94a3b8;
-    margin-top:15px;
-    font-size:20px;
+    margin-top:10px;
+    font-size:18px;
 }
 
-/* PROFILE */
+/* ===== PROFILE ===== */
 .profile{
     display:grid;
-    grid-template-columns:1.1fr 1.4fr;
-    gap:100px;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
     align-items:center;
 }
 
-/* PHOTO ULTRA DOMINANTE */
+/* ===== IMAGE ===== */
 .profile-img{
-    position:relative;
     display:flex;
     justify-content:center;
 }
 
 .profile-img img{
-    width:420px;
-    max-width:100%;
-    border-radius:35px;
-    z-index:2;
-    box-shadow:0 40px 120px rgba(0,0,0,0.8);
-    transition:0.5s;
+    width:100%;
+    max-width:320px;
+    border-radius:25px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-.profile-img img:hover{
-    transform:scale(1.1);
-}
-
-/* GLOW */
-.profile-img::before{
-    content:"";
-    position:absolute;
-    width:480px;
-    height:480px;
-    background:linear-gradient(45deg,#38bdf8,#6366f1);
-    filter:blur(120px);
-    opacity:0.6;
-}
-
-/* TEXTE */
+/* ===== TEXT ===== */
 .profile-text h2{
-    font-size:42px;
-    margin-bottom:25px;
-}
-
-/* 🔥 TEXTE STRUCTURÉ */
-.profile-text p{
-    font-size:17px;
-    line-height:2;
-    color:#cbd5f5;
-}
-
-/* MOTS IMPORTANTS */
-.highlight{
-    color:#38bdf8;
-    font-weight:700;
-}
-
-/* BLOCS TEXTE */
-.block{
+    font-size:32px;
     margin-bottom:20px;
 }
 
-/* IMPACT */
+.profile-text p{
+    font-size:16px;
+    line-height:1.8;
+    color:#cbd5f5;
+}
+
+/* ===== HIGHLIGHT ===== */
+.highlight{
+    color:#38bdf8;
+    font-weight:600;
+}
+
+/* ===== BLOCK ===== */
+.block{
+    margin-bottom:15px;
+}
+
+/* ===== IMPACT ===== */
 .impact{
-    margin-top:140px;
+    margin-top:100px;
     text-align:center;
 }
 
 .impact h2{
-    font-size:38px;
-    margin-bottom:50px;
+    font-size:32px;
+    margin-bottom:40px;
     color:#38bdf8;
 }
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:20px;
 }
 
 .stat{
     background:rgba(15,23,42,0.7);
-    backdrop-filter:blur(10px);
-    padding:40px;
-    border-radius:20px;
-    transition:0.4s;
-}
-
-.stat:hover{
-    transform:translateY(-10px) scale(1.03);
-    border:1px solid #38bdf8;
+    padding:25px;
+    border-radius:15px;
 }
 
 .stat h3{
-    font-size:36px;
+    font-size:28px;
     color:#38bdf8;
 }
 
-/* PROBLEM */
+/* ===== VISION ===== */
 .vision{
-    margin-top:140px;
+    margin-top:80px;
     text-align:center;
 }
 
 .vision h2{
-    font-size:38px;
+    font-size:30px;
     color:#38bdf8;
 }
 
 .vision p{
-    max-width:850px;
-    margin:auto;
-    margin-top:25px;
-    line-height:2;
+    margin-top:15px;
+    font-size:15px;
+    line-height:1.7;
     color:#94a3b8;
 }
 
-/* MOBILE */
-@media(max-width:900px){
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+
+    .container{
+        padding:80px 15px 40px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
     .profile{
         grid-template-columns:1fr;
+        gap:30px;
         text-align:center;
     }
 
     .profile-img img{
-        width:280px;
+        max-width:260px;
     }
+
+    .profile-text h2{
+        font-size:22px;
+    }
+
+    .profile-text p{
+        font-size:14px;
+    }
+
+    .impact h2{
+        font-size:24px;
+    }
+
+    .stat h3{
+        font-size:22px;
+    }
+
+    .vision h2{
+        font-size:24px;
+    }
+
+    .vision p{
+        font-size:14px;
+        padding:0 10px;
+    }
+
 }
 
 </style>
 
 <div class="about-bg">
-
-<div id="loader">
-    <h1>DJIBRIL MBAYE</h1>
-</div>
 
 <div class="container">
 
@@ -216,7 +200,7 @@
 <div class="profile">
 
     <div class="profile-img">
-        <img src="{% static 'photo_soft.png' %}">
+        <img src="{% static 'photo_soft.png' %}" alt="Djibril Mbaye">
     </div>
 
     <div class="profile-text">
@@ -226,7 +210,8 @@
         <div class="block">
             <p>
             Ingénieur spécialisé en
-            <span class="highlight">informatique, informatique médicale</span> et
+            <span class="highlight">informatique</span>,
+            <span class="highlight">informatique médicale</span> et
             <span class="highlight">maintenance biomédicale</span>
             avec plus de <span class="highlight">6 ans d’expérience</span>.
             </p>
@@ -234,7 +219,8 @@
 
         <div class="block">
             <p>
-            Expertise en <span class="highlight">gestion des équipements médicaux</span>,
+            Expertise en
+            <span class="highlight">gestion des équipements médicaux</span>,
             <span class="highlight">infrastructures IT critiques</span> et
             <span class="highlight">digitalisation des systèmes hospitaliers</span>.
             </p>
@@ -250,7 +236,7 @@
 
         <div class="block">
             <p>
-            Objectif : concevoir des systèmes informatiques et médical
+            Objectif : concevoir des systèmes
             <span class="highlight">intelligents</span>,
             <span class="highlight">fiables</span> et
             <span class="highlight">accessibles</span>.
@@ -283,30 +269,20 @@
     </div>
 </div>
 
-<!-- PROBLEM -->
+<!-- VISION -->
 <div class="vision">
-
     <h2>Problème & Solution</h2>
 
     <p>
-Les systèmes de santé souffrent souvent de <span class="highlight">pannes fréquentes</span>,
-de <span class="highlight">failles IT</span> et d’un manque de digitalisation.
+    Les systèmes de santé souffrent souvent de pannes, de failles IT
+    et d’un manque de digitalisation.
 
-Ma solution : intégrer des systèmes intelligents,
-automatiser les processus et garantir une maintenance proactive
-pour améliorer la qualité des soins.
+    Ma solution : intégrer des systèmes intelligents,
+    automatiser et améliorer la fiabilité des infrastructures.
     </p>
-
 </div>
 
 </div>
 </div>
-
-<script>
-gsap.from(".hero",{y:80,opacity:0,duration:1.2});
-gsap.from(".profile",{x:-100,opacity:0,duration:1.2,delay:0.3});
-gsap.from(".impact",{y:80,opacity:0,duration:1,delay:0.6});
-gsap.from(".vision",{y:80,opacity:0,duration:1,delay:0.9});
-</script>
 
 {% endblock %}
