@@ -1,3 +1,4 @@
+```html
 {% extends 'core/base.html' %}
 {% load static %}
 
@@ -54,9 +55,25 @@ body{
     animation:float 20s infinite ease-in-out;
 }
 
-.bg-ambient span:nth-child(1){background:#38bdf8; top:-100px; left:-100px;}
-.bg-ambient span:nth-child(2){background:#818cf8; bottom:-120px; right:-120px; animation-delay:5s;}
-.bg-ambient span:nth-child(3){background:#0ea5e9; top:50%; left:40%; animation-delay:10s;}
+.bg-ambient span:nth-child(1){
+    background:#38bdf8;
+    top:-100px;
+    left:-100px;
+}
+
+.bg-ambient span:nth-child(2){
+    background:#818cf8;
+    bottom:-120px;
+    right:-120px;
+    animation-delay:5s;
+}
+
+.bg-ambient span:nth-child(3){
+    background:#0ea5e9;
+    top:50%;
+    left:40%;
+    animation-delay:10s;
+}
 
 @keyframes float{
     0%{transform:translate(0,0);}
@@ -76,7 +93,9 @@ body::after{
 }
 
 /* ===== CONTENT ===== */
-.page-title,.books,.popup{
+.page-title,
+.books,
+.popup{
     position:relative;
     z-index:2;
 }
@@ -87,7 +106,7 @@ body::after{
     margin-top:100px;
     font-size:48px;
     font-weight:900;
-    background: linear-gradient(90deg,#38bdf8,#818cf8);
+    background:linear-gradient(90deg,#38bdf8,#818cf8);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -137,11 +156,15 @@ body::after{
     justify-content:flex-end;
 }
 
-/* ===== TEXT ===== */
-.overlay h2{font-size:20px;}
-.overlay p{font-size:14px;color:#cbd5f5;}
+.overlay h2{
+    font-size:20px;
+}
 
-/* ===== BUTTON ===== */
+.overlay p{
+    font-size:14px;
+    color:#cbd5f5;
+}
+
 .overlay a{
     margin-top:15px;
     padding:10px;
@@ -149,6 +172,7 @@ body::after{
     border-radius:20px;
     text-align:center;
     color:white;
+    cursor:pointer;
 }
 
 /* ===== HOVER ===== */
@@ -157,7 +181,9 @@ body::after{
     box-shadow:0 30px 80px rgba(0,0,0,0.9);
 }
 
-.book:hover .overlay{opacity:1;}
+.book:hover .overlay{
+    opacity:1;
+}
 
 /* ===== POPUP ===== */
 .popup{
@@ -170,42 +196,48 @@ body::after{
     z-index:999;
 }
 
-/* ===== CONTENT ===== */
 .popup-content{
-    background:rgba(15,23,42,0.9);
+    background:rgba(15,23,42,0.95);
     padding:45px;
     border-radius:20px;
     max-width:750px;
+    width:90%;
     max-height:85vh;
     overflow:auto;
 }
 
-/* ===== TEXT ===== */
+.popup-content h2{
+    margin-bottom:20px;
+}
+
 .popup-content p{
     font-family:Georgia,serif;
     line-height:2;
 }
 
-/* ===== BUTTON ===== */
 .btn-main{
     background:#38bdf8;
+    color:white;
     padding:12px 22px;
     border:none;
     border-radius:25px;
+    cursor:pointer;
+    margin-top:20px;
 }
 
-/* ===== CLOSE ===== */
 .close{
     position:absolute;
     top:25px;
     right:35px;
     font-size:28px;
     cursor:pointer;
+    color:white;
 }
 
-/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-    .books{padding:30px;}
+    .books{
+        padding:30px;
+    }
 }
 
 </style>
@@ -214,29 +246,41 @@ body::after{
 
 <section class="books">
 
-<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-    <img src="{% static 'core/heritage.png' %}">
-    <div class="overlay">
-        <h2>PARDONNE-MOI, AVANT QUE LA NUIT NE TOMBE</h2>
-        <a onclick="openDetails('r1')">Voir détails</a>
+    <!-- Roman 1 -->
+    <div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+        <img src="{% static 'core/heritage.png' %}">
+        <div class="overlay">
+            <h2>PARDONNE-MOI, AVANT QUE LA NUIT NE TOMBE</h2>
+            <a onclick="openDetails('r1')">Voir détails</a>
+        </div>
     </div>
-</div>
 
-<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-    <img src="{% static 'core/mariame.png' %}">
-    <div class="overlay">
-        <h2>Mariama</h2>
-        <a onclick="openDetails('r2')">Voir détails</a>
+    <!-- Roman 2 -->
+    <div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+        <img src="{% static 'core/mariame.png' %}">
+        <div class="overlay">
+            <h2>Mariama</h2>
+            <a onclick="openDetails('r2')">Voir détails</a>
+        </div>
     </div>
-</div>
 
-<div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-    <img src="{% static 'core/vivant.png' %}">
-    <div class="overlay">
-        <h2>Même vivant, tu me manques</h2>
-        <a onclick="openDetails('r3')">Voir détails</a>
+    <!-- Roman 3 -->
+    <div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+        <img src="{% static 'core/vivant.png' %}">
+        <div class="overlay">
+            <h2>Même vivant, tu me manques</h2>
+            <a onclick="openDetails('r3')">Voir détails</a>
+        </div>
     </div>
-</div>
+
+    <!-- Roman 4 -->
+    <div class="book" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+        <img src="{% static 'core/larme.png' %}">
+        <div class="overlay">
+            <h2>Les Larmes que Dieu Seul a Vues</h2>
+            <a onclick="openDetails('r4')">Voir détails</a>
+        </div>
+    </div>
 
 </section>
 
@@ -257,48 +301,119 @@ document.addEventListener("mousemove",(e)=>{
 /* ===== 3D TILT ===== */
 function tilt(e,el){
     const rect=el.getBoundingClientRect();
+
     const x=e.clientX-rect.left;
     const y=e.clientY-rect.top;
 
     const rotateX=-(y-rect.height/2)/15;
     const rotateY=(x-rect.width/2)/15;
 
-    el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    el.style.transform=
+    `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
 }
 
 function resetTilt(el){
     el.style.transform="rotateX(0) rotateY(0)";
 }
 
-/* ===== POPUP ===== */
-const books={
-r1:{title:"PARDONNE-MOI...",file:"r1.txt"},
-r2:{title:"Mariama",file:"r2.txt"},
-r3:{title:"Même vivant...",file:"r3.txt"}
+/* ===== DATA ===== */
+const books = {
+
+    r1:{
+        title:"PARDONNE-MOI, AVANT QUE LA NUIT NE TOMBE",
+        file:"r1.txt"
+    },
+
+    r2:{
+        title:"Mariama",
+        file:"r2.txt"
+    },
+
+    r3:{
+        title:"Même vivant, tu me manques",
+        file:"r3.txt"
+    },
+
+    r4:{
+        title:"Les Larmes que Dieu Seul a Vues",
+        file:"r4.txt"
+    }
+
 };
 
 const popup=document.getElementById("popup");
 const popupContent=document.getElementById("popupContent");
 
+/* ===== DETAILS ===== */
 function openDetails(id){
+
     const b=books[id];
+
+    let description="";
+
+    if(id==="r4"){
+        description=`
+        Roman spirituel et philosophique inspiré d'une vie marquée
+        par les blessures, les trahisons, les promesses brisées,
+        mais aussi par la foi, l'espérance et la résilience.
+        Une œuvre profonde qui rappelle que certaines larmes
+        ne sont vues que par Dieu.
+        `;
+    }
+
     popup.style.display="flex";
-    popupContent.innerHTML=`<h2>${b.title}</h2>
-    <button class="btn-main" onclick="showExtract('${id}')">Lire</button>`;
+
+    popupContent.innerHTML=`
+        <h2>${b.title}</h2>
+
+        <p style="margin:20px 0;color:#cbd5e1;">
+            ${description}
+        </p>
+
+        <button class="btn-main"
+            onclick="showExtract('${id}')">
+            📖 Lire l'extrait
+        </button>
+    `;
 }
 
+/* ===== LOAD TXT ===== */
 function showExtract(id){
+
     fetch(`/static/core/${books[id].file}`)
-    .then(r=>r.text())
+    .then(response=>response.text())
     .then(text=>{
-        popupContent.innerHTML=`<p>${text.replace(/\n/g,"<br>")}</p>`;
+
+        popupContent.innerHTML=`
+            <h2>${books[id].title}</h2>
+            <hr style="margin:20px 0;border-color:#334155;">
+            <p>${text.replace(/\n/g,"<br>")}</p>
+        `;
+
+    })
+    .catch(()=>{
+
+        popupContent.innerHTML=`
+            <h2>${books[id].title}</h2>
+            <p>Impossible de charger le fichier texte.</p>
+        `;
+
     });
 }
 
+/* ===== CLOSE ===== */
 function closePopup(){
     popup.style.display="none";
 }
 
+/* ===== CLOSE CLICK OUTSIDE ===== */
+popup.addEventListener("click",(e)=>{
+    if(e.target===popup){
+        closePopup();
+    }
+});
+
 </script>
 
 {% endblock %}
+```

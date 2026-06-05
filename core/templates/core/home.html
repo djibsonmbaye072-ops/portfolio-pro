@@ -10,7 +10,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     font-family:'Segoe UI',sans-serif;
@@ -19,17 +24,18 @@ body{
     overflow-x:hidden;
 }
 
-/* PARTICLES */
+/* ================= PARTICLES ================= */
+
 #particles{
     position:fixed;
-    top:0;
-    left:0;
+    inset:0;
     width:100%;
     height:100%;
     z-index:-1;
 }
 
-/* HERO */
+/* ================= HERO ================= */
+
 .hero{
     height:100vh;
     display:flex;
@@ -39,13 +45,19 @@ body{
     padding:0 60px;
 }
 
-/* TEXT */
+/* ================= TEXT ================= */
+
 .side{
     width:25%;
 }
 
-.left{text-align:right;}
-.right{text-align:left;}
+.left{
+    text-align:right;
+}
+
+.right{
+    text-align:left;
+}
 
 .side h2{
     font-size:60px;
@@ -53,15 +65,22 @@ body{
     letter-spacing:-1px;
 }
 
-.left h2{color:#60a5fa;}
-.right h2{color:#818cf8;}
+.left h2{
+    color:#60a5fa;
+}
+
+.right h2{
+    color:#818cf8;
+}
 
 .side p{
     margin-top:12px;
     color:#94a3b8;
+    line-height:1.7;
 }
 
-/* CENTER */
+/* ================= CENTER ================= */
+
 .center{
     width:50%;
     display:flex;
@@ -70,19 +89,23 @@ body{
     perspective:1000px;
 }
 
-/* IMAGE */
+/* ================= IMAGE ================= */
+
 .image-box{
     width:430px;
     height:540px;
+
     border-radius:20px;
     overflow:hidden;
+
     position:relative;
+
     transform-style:preserve-3d;
-    transition:transform 0.2s ease;
+    transition:transform .2s ease;
 
     box-shadow:
-        0 60px 160px rgba(0,0,0,0.9),
-        0 0 80px rgba(56,189,248,0.2);
+        0 60px 160px rgba(0,0,0,.9),
+        0 0 80px rgba(56,189,248,.2);
 }
 
 .image-box img{
@@ -91,26 +114,36 @@ body{
     object-fit:cover;
 }
 
-/* GLOW */
 .image-box::after{
     content:"";
     position:absolute;
     inset:-2px;
     border-radius:20px;
-    background:linear-gradient(45deg,#38bdf8,#6366f1,#38bdf8);
+
+    background:
+    linear-gradient(
+        45deg,
+        #38bdf8,
+        #6366f1,
+        #38bdf8
+    );
+
     z-index:-1;
+
     filter:blur(20px);
-    opacity:0.4;
+    opacity:.4;
 }
 
-/* NAME */
+/* ================= NAME ================= */
+
 .name{
     margin-top:25px;
     font-size:32px;
     font-weight:800;
 }
 
-/* BUTTONS */
+/* ================= BUTTONS ================= */
+
 .buttons{
     margin-top:15px;
 }
@@ -122,6 +155,7 @@ body{
     text-decoration:none;
     font-weight:500;
     display:inline-block;
+    transition:.3s;
 }
 
 .btn-primary{
@@ -134,30 +168,128 @@ body{
     color:#38bdf8;
 }
 
-/* SECTIONS SCROLL */
+/* ================= SECTIONS ================= */
+
 .section{
     opacity:0;
     transform:translateY(80px);
+
     padding:120px 40px;
     text-align:center;
 }
 
-/* RESPONSIVE */
+.section h2{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.section p{
+    color:#cbd5e1;
+    max-width:800px;
+    margin:auto;
+    line-height:1.8;
+}
+
+/* ================= RESPONSIVE ULTRA MOBILE ================= */
+
 @media(max-width:900px){
+
     .hero{
+        min-height:100dvh;
+        height:auto;
         flex-direction:column;
+        justify-content:center;
         text-align:center;
-        gap:40px;
+        gap:25px;
+        padding:120px 20px 60px;
     }
 
-    .side{width:100%;}
-    .center{width:100%;}
+    .side{
+        width:100%;
+    }
+
+    .center{
+        width:100%;
+    }
+
+    .left,
+    .right{
+        text-align:center;
+    }
+
+    .side h2{
+        font-size:36px;
+        line-height:1.1;
+    }
+
+    .side p{
+        font-size:15px;
+        line-height:1.6;
+    }
 
     .image-box{
         width:260px;
         height:320px;
     }
+
+    .name{
+        font-size:26px;
+        text-align:center;
+    }
+
+    .buttons{
+        display:flex;
+        flex-direction:column;
+        width:100%;
+        align-items:center;
+        gap:12px;
+        margin-top:20px;
+    }
+
+    .btn{
+        width:90%;
+        max-width:320px;
+        margin:0;
+        padding:14px 20px;
+        font-size:16px;
+        text-align:center;
+    }
+
+    .section{
+        padding:80px 20px;
+    }
+
+    .section h2{
+        font-size:28px;
+        margin-bottom:15px;
+    }
+
+    .section p{
+        font-size:16px;
+        line-height:1.7;
+    }
 }
+
+@media(max-width:480px){
+
+    .side h2{
+        font-size:30px;
+    }
+
+    .image-box{
+        width:220px;
+        height:280px;
+    }
+
+    .name{
+        font-size:22px;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+
 </style>
 
 <canvas id="particles"></canvas>
@@ -166,151 +298,236 @@ body{
 
     <div class="side left">
         <h2>Ingénieur</h2>
-        <p>Maintenance biomédicale<br> systèmes fiables</p>
+        <p>
+            Maintenance biomédicale<br>
+            systèmes fiables
+        </p>
     </div>
 
     <div class="center">
 
         <div class="image-box" id="card">
-            <img src="{% static 'photo_pro.png' %}">
+            <img src="{% static 'photo_pro.png' %}" alt="DJIBRIL MBAYE">
         </div>
 
-        <div class="name">DJIBRIL MBAYE</div>
+        <div class="name">
+            DJIBRIL MBAYE
+        </div>
 
         <div class="buttons">
-            <a href="{% url 'projects' %}" class="btn btn-primary">🚀 Projets</a>
-            <a href="{% url 'about' %}" class="btn btn-outline">👤 Profil</a>
+            <a href="{% url 'projects' %}" class="btn btn-primary">
+                🚀 Projets
+            </a>
+
+            <a href="{% url 'about' %}" class="btn btn-outline">
+                👤 Profil
+            </a>
         </div>
 
     </div>
 
     <div class="side right">
         <h2>&lt; Dev /&gt;</h2>
-        <p>Applications Django<br> solutions modernes</p>
+        <p>
+            Applications Django<br>
+            solutions modernes
+        </p>
     </div>
 
 </section>
 
-<!-- SECTIONS POUR SCROLL STORY -->
 <section class="section">
     <h2>💡 Expertise</h2>
-    <p>Développement web & maintenance biomédicale</p>
+    <p>
+        Développement web, ingénierie logicielle,
+        maintenance biomédicale et transformation digitale.
+    </p>
 </section>
 
 <section class="section">
     <h2>⚡ Projets récents</h2>
-    <p>Plateformes intelligentes & solutions digitales</p>
+    <p>
+        Applications intelligentes, plateformes de gestion,
+        solutions médicales et entrepreneuriat numérique.
+    </p>
 </section>
 
 <script>
 
-/* =========================
-   GSAP INIT
-========================= */
+/* ================= GSAP ================= */
+
 gsap.registerPlugin(ScrollTrigger);
 
-/* =========================
-   HERO CINÉMATIQUE
-========================= */
-gsap.from(".side", {
-    y: 80,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power3.out"
+gsap.from(".side",{
+    y:80,
+    opacity:0,
+    duration:1,
+    stagger:0.2,
+    ease:"power3.out"
 });
 
-gsap.from(".image-box", {
-    scale: 0.8,
-    opacity: 0,
-    duration: 1.2,
-    ease: "power3.out"
+gsap.from(".image-box",{
+    scale:0.8,
+    opacity:0,
+    duration:1.2,
+    ease:"power3.out"
 });
 
-gsap.from(".name", {
-    y: 30,
-    opacity: 0,
-    delay: 0.4,
-    duration: 1
+gsap.from(".name",{
+    y:30,
+    opacity:0,
+    delay:0.4,
+    duration:1
 });
 
-/* =========================
-   SCROLL STORYTELLING
-========================= */
+/* ================= SCROLL ================= */
+
 gsap.utils.toArray(".section").forEach(section=>{
+
     gsap.to(section,{
         scrollTrigger:{
             trigger:section,
-            start:"top 80%",
+            start:"top 80%"
         },
         y:0,
         opacity:1,
         duration:1
     });
+
 });
 
-/* =========================
-   MICRO INTERACTIONS
-========================= */
+/* ================= BUTTONS ================= */
+
 document.querySelectorAll(".btn").forEach(btn=>{
+
     btn.addEventListener("mouseenter",()=>{
-        gsap.to(btn,{scale:1.1,duration:0.2});
+        gsap.to(btn,{
+            scale:1.1,
+            duration:0.2
+        });
     });
 
     btn.addEventListener("mouseleave",()=>{
-        gsap.to(btn,{scale:1,duration:0.2});
+        gsap.to(btn,{
+            scale:1,
+            duration:0.2
+        });
     });
+
 });
 
-/* =========================
-   PARALLAX 3D IMAGE
-========================= */
+/* ================= 3D CARD ================= */
+
 const card = document.getElementById("card");
 
-document.addEventListener("mousemove",(e)=>{
-    let x = (window.innerWidth/2 - e.clientX)/25;
-    let y = (window.innerHeight/2 - e.clientY)/25;
+if(window.innerWidth > 768){
 
-    card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    document.addEventListener("mousemove",(e)=>{
+
+        let x =
+        (window.innerWidth/2 - e.clientX)/25;
+
+        let y =
+        (window.innerHeight/2 - e.clientY)/25;
+
+        card.style.transform =
+        `rotateY(${x}deg) rotateX(${y}deg)`;
+
+    });
+
+}else{
+
+    card.style.transform = "none";
+
+}
+
+/* ================= PARTICLES ================= */
+
+const canvas =
+document.getElementById("particles");
+
+const ctx =
+canvas.getContext("2d");
+
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
+
+/* REDIMENSIONNEMENT */
+
+window.addEventListener("resize",()=>{
+
+    canvas.width =
+    window.innerWidth;
+
+    canvas.height =
+    window.innerHeight;
+
 });
-
-/* =========================
-   PARTICLES
-========================= */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
 let particles = [];
 
 for(let i=0;i<40;i++){
+
     particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        vx: (Math.random()-0.5)*0.4,
-        vy: (Math.random()-0.5)*0.4
+
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+
+        vx:(Math.random()-0.5)*0.4,
+        vy:(Math.random()-0.5)*0.4
+
     });
+
 }
 
 function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
     particles.forEach(p=>{
+
         p.x += p.vx;
         p.y += p.vy;
 
-        if(p.x<0||p.x>canvas.width) p.vx*=-1;
-        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        if(
+            p.x<0 ||
+            p.x>canvas.width
+        ){
+            p.vx *= -1;
+        }
+
+        if(
+            p.y<0 ||
+            p.y>canvas.height
+        ){
+            p.vy *= -1;
+        }
 
         ctx.beginPath();
-        ctx.arc(p.x,p.y,2,0,Math.PI*2);
+
+        ctx.arc(
+            p.x,
+            p.y,
+            2,
+            0,
+            Math.PI*2
+        );
+
         ctx.fillStyle="#38bdf8";
         ctx.fill();
+
     });
 
     requestAnimationFrame(draw);
+
 }
 
 draw();

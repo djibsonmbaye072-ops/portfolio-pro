@@ -89,25 +89,40 @@ body::before{
 }
 
 /* ================= KPI ================= */
+
 .kpis{
-    display:flex;
-    justify-content:center;
-    gap:80px;
-    margin:100px 0;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:40px;
+    margin:100px auto;
+    max-width:1200px;
 }
 
 .kpi{
     text-align:center;
+    background:rgba(255,255,255,0.04);
+    backdrop-filter:blur(15px);
+    padding:35px 20px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:.4s;
+}
+
+.kpi:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 40px rgba(56,189,248,.25);
 }
 
 .kpi h2{
-    font-size:60px;
+    font-size:55px;
     color:#38bdf8;
     text-shadow:0 0 20px #38bdf8;
 }
 
 .kpi span{
     color:#94a3b8;
+    display:block;
+    margin-top:10px;
 }
 
 /* ================= TIMELINE ================= */
@@ -271,14 +286,29 @@ body::before{
         left:10px;
     }
 
+    /* KPI */
     .kpis{
-        flex-direction:column;
-        gap:30px;
+        grid-template-columns:repeat(2,1fr);
+        gap:20px;
+        padding:0 15px;
+    }
+
+    .kpi h2{
+        font-size:40px;
     }
 
     .impact-grid{
         flex-direction:column;
     }
+}
+
+/* PETITS SMARTPHONES */
+@media(max-width:480px){
+
+    .kpis{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -303,18 +333,27 @@ body::before{
 
 <!-- KPI -->
 <div class="kpis">
+
     <div class="kpi">
-        <h2 id="years">6</h2>
+        <h2 id="years">0</h2>
         <span>Années d'expérience</span>
     </div>
+
     <div class="kpi">
-        <h2>+15</h2>
+        <h2 id="projects">0</h2>
         <span>Projets réalisés</span>
     </div>
+
     <div class="kpi">
-        <h2>100%</h2>
-        <span>Engagement</span>
+        <h2 id="techs">0</h2>
+        <span>Technologies maîtrisées</span>
     </div>
+
+    <div class="kpi">
+        <h2 id="certs">0</h2>
+        <span>Certifications</span>
+    </div>
+
 </div>
 
 <!-- TIMELINE -->
@@ -322,41 +361,139 @@ body::before{
 
     <!-- TES ITEMS ORIGINAUX (INCHANGÉS) -->
     <!-- ITEM 1 -->
-    <div class="item">
-        <div class="card">
-            <h3>Maintenance Biomédicale</h3>
-            <div class="date">2026 - En cours</div>
-            <p>Diagnostic et optimisation d’équipements médicaux critiques.</p>
-        </div>
-        <div class="dot"></div>
-    </div>
+<div class="item">
+    <div class="card">
+        <h3>CompTIA Security+</h3>
+        <div class="date">2026 - 2027 | En cours</div>
+        <p>
+            Préparation à la certification internationale CompTIA Security+
+            couvrant la cybersécurité, la gestion des risques, la sécurité
+            des réseaux, l'analyse des menaces, la gouvernance et les
+            bonnes pratiques de sécurité informatique.
+        </p>
 
-    <div class="item">
-        <div class="card right">
-            <h3>Développement Web</h3>
-            <div class="date">2023 - Présent</div>
-            <p>Création de plateformes modernes avec Django et API.</p>
-        </div>
-        <div class="dot"></div>
-    </div>
+```
+    <span class="badge">Cybersécurité</span>
+    <span class="badge">Security+</span>
+    <span class="badge">Risk Management</span>
+    <span class="badge">Network Security</span>
+    <span class="badge">CompTIA</span>
+</div>
+<div class="dot"></div>
+```
 
-    <div class="item">
-        <div class="card">
-            <h3>Technicien Informatique</h3>
-            <div class="date">2022 - Présent</div>
-            <p>Maintenance systèmes, réseaux et support technique.</p>
-        </div>
-        <div class="dot"></div>
-    </div>
+</div>
 
-    <div class="item">
-        <div class="card right">
-            <h3>Écrivain</h3>
-            <div class="date">En cours</div>
-            <p>Romans publiés et en cours.</p>
-        </div>
-        <div class="dot"></div>
+<div class="item">
+    <div class="card right">
+        <h3>Technicien Biomédical</h3>
+        <div class="date">2026 - En cours</div>
+        <p>
+            Diagnostic, maintenance préventive et corrective
+            d'équipements médicaux critiques.
+        </p>
     </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card">
+        <h3>Certifications Google</h3>
+        <div class="date">2024</div>
+        <p>
+            Google Cloud, Google Ads, Analytics et outils
+            d'optimisation digitale.
+        </p>
+
+```
+    <span class="badge">Google Cloud</span>
+    <span class="badge">Google Ads</span>
+    <span class="badge">Analytics</span>
+</div>
+<div class="dot"></div>
+```
+
+</div>
+
+<div class="item">
+    <div class="card right">
+        <h3>Développeur Web Django</h3>
+        <div class="date">2023 - Présent</div>
+        <p>
+            Conception d'applications web modernes,
+            APIs REST, automatisation et plateformes métier.
+        </p>
+    </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card">
+        <h3>Certifications Huawei</h3>
+        <div class="date">2023</div>
+        <p>
+            Cloud Computing, sécurité des systèmes
+            et infrastructures Huawei.
+        </p>
+
+```
+    <span class="badge">Cloud</span>
+    <span class="badge">Sécurité</span>
+    <span class="badge">Huawei</span>
+</div>
+<div class="dot"></div>
+```
+
+</div>
+
+<div class="item">
+    <div class="card right">
+        <h3>Technicien Informatique</h3>
+        <div class="date">2022 - Présent</div>
+        <p>
+            Maintenance informatique, réseaux,
+            systèmes Windows et support utilisateurs.
+        </p>
+    </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card">
+        <h3>Licence Informatique Industrielle</h3>
+        <div class="date">ISI – Dakar</div>
+        <p>
+            Réseaux industriels, automatisation,
+            instrumentation et systèmes embarqués.
+        </p>
+    </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card right">
+        <h3>Formation Informatique & Réseaux</h3>
+        <div class="date">HEMI – Dakar</div>
+        <p>
+            Administration systèmes, maintenance,
+            sécurité informatique et réseaux.
+        </p>
+    </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card">
+        <h3>Écrivain & Auteur</h3>
+        <div class="date">En cours</div>
+        <p>
+            Publication de romans, ouvrages spirituels,
+            philosophiques et développement personnel.
+        </p>
+    </div>
+    <div class="dot"></div>
+</div>
+
 
     <!-- AJOUT PARCOURS -->
     <div class="item">
@@ -378,14 +515,54 @@ body::before{
     </div>
 
     <!-- AJOUT CERTIFICATIONS -->
+
     <div class="item">
         <div class="card">
-            <h3>Certifications Huawei</h3>
-            <div class="date">2023</div>
-            <p>Cloud, sécurité et systèmes Huawei.</p>
-        </div>
+        <h3>Certifications Huawei</h3>
+        <div class="date">2023</div>
+        <p>Cloud, sécurité et systèmes Huawei.</p>
+
+        <span class="badge">Cloud</span>
+        <span class="badge">Sécurité</span>
+        <span class="badge">Huawei</span>
+            </div>
         <div class="dot"></div>
     </div>
+
+<div class="item">
+    <div class="card right">
+        <h3>Certifications Google</h3>
+        <div class="date">2024</div>
+        <p>Google Ads, Tag Manager et Cloud.</p>
+
+        <span class="badge">Google Cloud</span>
+        <span class="badge">Google Ads</span>
+        <span class="badge">Analytics</span>
+    </div>
+    <div class="dot"></div>
+</div>
+
+<div class="item">
+    <div class="card">
+        <h3>CompTIA Security+</h3>
+        <div class="date">2026 - 2027 | En cours</div>
+
+        <p>
+            Formation et préparation à la certification internationale
+            CompTIA Security+ couvrant la cybersécurité, la gestion des risques,
+            la sécurité des réseaux, l'analyse des menaces, la gouvernance,
+            les contrôles d'accès et les bonnes pratiques de sécurité informatique.
+        </p>
+
+        <span class="badge">Cybersécurité</span>
+        <span class="badge">Security+</span>
+        <span class="badge">Risk Management</span>
+        <span class="badge">Network Security</span>
+        <span class="badge">CompTIA</span>
+    </div>
+    <div class="dot"></div>
+</div>
+
 
     <div class="item">
         <div class="card right">
@@ -431,20 +608,47 @@ window.addEventListener('scroll', () => {
     });
 });
 
+function animateCounter(id,target,suffix=""){
+
+    const element = document.getElementById(id);
+
+    let current = 0;
+
+    const interval = setInterval(()=>{
+
+        current++;
+
+        element.innerText = current + suffix;
+
+        if(current >= target){
+            clearInterval(interval);
+        }
+
+    },80);
+
+}
+
 let started = false;
+
 window.addEventListener('scroll',()=>{
-    const counter = document.getElementById("years");
-    if(counter && !started && counter.getBoundingClientRect().top < window.innerHeight){
+
+    const block = document.querySelector('.kpis');
+
+    if(
+        block &&
+        !started &&
+        block.getBoundingClientRect().top < window.innerHeight
+    ){
+
         started = true;
-        let count = 0;
-        let interval = setInterval(()=>{
-            count++;
-            counter.innerText = count;
-            if(count === 6){
-                clearInterval(interval);
-            }
-        },150);
+
+        animateCounter("years",6);
+        animateCounter("projects",15,"+");
+        animateCounter("techs",10,"+");
+        animateCounter("certs",4);
+
     }
+
 });
 
 document.addEventListener("mousemove", (e)=>{
